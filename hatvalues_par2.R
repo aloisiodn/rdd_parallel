@@ -27,18 +27,4 @@ hatvalues.ivreg_par <-function (model, cl=NULL, ...)
   
   diag(f[[1]]%*%f[[2]]%*%f[[3]])
 }
-matprod.par <- function(cl, A, B){
-  if (ncol(A) != nrow(B)) stop("Matrices do not conforme")
-  if (as.numeric(nrow(A)) * ncol(A) * ncol(B) > 15000000000 ) {
-    print(paste("parallel!!! nr clusters:", length(cl), "   billions:", as.numeric(nrow(A)) * ncol(A) * ncol(B) / 1000000000))
-    idx <- splitIndices(nrow(A), length(cl))
-    Alist <- lapply(idx, function(ii) A[ii,,drop=FALSE])
-    ## ans <- clusterApply(cl, Alist, function(aa, B) aa %*% B, B)
-    ## Same as above, but faster:
-    ans <- clusterApply(cl, Alist, get("%*%"), B)
-    do.call(rbind, ans)
-  } else {
-    print(paste("sequencial!!! ", "billions:", as.numeric(nrow(A)) * ncol(A) * ncol(B) / 1000000000)) 
-    A%*%B
-  }  
-}
+
