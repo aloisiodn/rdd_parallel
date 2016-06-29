@@ -5,4 +5,4 @@ _par.R and _par2.R are the modified functions. Original files are also provided 
 
 rdd_par_sim.R was used to evaluate rdd and rdRobust over simulated data.
 
-rdd_par_eval.R wasused to evaluate the refactored version.
+rdd_par_eval.R was used to evaluate the refactored version.
